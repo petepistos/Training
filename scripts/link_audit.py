@@ -7,7 +7,8 @@ JavaScript pseudo-links, fragments, data URIs, and in-page anchors.
 
 Usage:
     python scripts/link_audit.py
-    python scripts/link_audit.py --root . --include-case-studies
+    python scripts/link_audit.py --root .
+    python scripts/link_audit.py --training-only
 """
 
 from __future__ import annotations
@@ -23,9 +24,17 @@ DEFAULT_SCOPES = [
     "Introduction",
     "Intermediate",
     "Advanced",
+    "real-life-events",
 ]
 
-OPTIONAL_SCOPES = ["real-life-events"]
+TRAINING_ONLY_SCOPES = [
+    "index.html",
+    "Introduction",
+    "Intermediate",
+    "Advanced",
+]
+
+MODULE_FOLDERS = {"Introduction", "Intermediate", "Advanced", "real-life-events"}
 
 IGNORED_SCHEMES = {
     "http",
@@ -51,19 +60,15 @@ class LinkParser(html.parser.HTMLParser):
                 self.refs.append((name, value.strip(), self.getpos()[0]))
 
 
-def iter_html_files(root: Path, include_case_studies: bool) -> list[Path]:
+def iter_html_files(root: Path, training_only: bool) -> list[Path]:
     files: list[Path] = []
-    for scope in DEFAULT_SCOPES:
+    scopes = TRAINING_ONLY_SCOPES if training_only else DEFAULT_SCOPES
+    for scope in scopes:
         path = root / scope
         if path.is_file() and path.suffix.lower() == ".html":
             files.append(path)
         elif path.is_dir():
             files.extend(sorted(path.rglob("*.html")))
-    if include_case_studies:
-        for scope in OPTIONAL_SCOPES:
-            path = root / scope
-            if path.is_dir():
-                files.extend(sorted(path.rglob("*.html")))
     return sorted(set(files))
 
 
@@ -86,9 +91,9 @@ def resolve_reference(source_file: Path, ref: str) -> Path | None:
     return (source_file.parent / path_part).resolve()
 
 
-def audit(root: Path, include_case_studies: bool) -> tuple[list[str], list[str], list[Path]]:
+def audit(root: Path, training_only: bool) -> tuple[list[str], list[str], list[Path]]:
     root = root.resolve()
-    html_files = iter_html_files(root, include_case_studies)
+    html_files = iter_html_files(root, training_only)
     broken: list[str] = []
     suspicious: list[str] = []
 
@@ -121,10 +126,10 @@ def audit(root: Path, include_case_studies: bool) -> tuple[list[str], list[str],
                     f"{html_file.relative_to(root)}:{line}: missing target for {attr}=\"{ref}\" -> {target.relative_to(root)}"
                 )
 
-        # Training modules should offer a path back to the root portal. This is
-        # suspicious rather than broken because many pages can still be reached
-        # and navigated without it.
-        if html_file.parent.name in {"Introduction", "Intermediate", "Advanced"} and not has_portal_link:
+        # User-facing module and case-study pages should offer a path back to
+        # the root portal. This is suspicious rather than broken because pages
+        # can still function without it.
+        if html_file.parent.name in MODULE_FOLDERS and not has_portal_link:
             suspicious.append(
                 f"{html_file.relative_to(root)}: no explicit href back to ../index.html found"
             )
@@ -136,14 +141,14 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Audit repository-local HTML href/src references.")
     parser.add_argument("--root", default=".", help="Repository root. Default: current directory.")
     parser.add_argument(
-        "--include-case-studies",
+        "--training-only",
         action="store_true",
-        help="Also scan real-life case-study HTML files.",
+        help="Scan only index.html and the three main training folders.",
     )
     args = parser.parse_args()
 
     root = Path(args.root)
-    broken, suspicious, checked = audit(root, args.include_case_studies)
+    broken, suspicious, checked = audit(root, args.training_only)
 
     print("Pistos Training Link Audit")
     print(f"Files checked: {len(checked)}")
