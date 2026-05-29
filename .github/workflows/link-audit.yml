@@ -1,0 +1,23 @@
+name: Link Audit
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  link-audit:
+    name: Check repository-local HTML links
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run link audit
+        run: python scripts/link_audit.py
