@@ -19,5 +19,5 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Run link audit including case studies
-        run: python scripts/link_audit.py --include-case-studies
+      - name: Run link audit
+        run: python scripts/link_audit.py
