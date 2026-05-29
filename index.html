@@ -7,8 +7,8 @@
   <style>
     :root {
       --bg: #0b1220;
-      --panel: #111a2e;
-      --panel-2: #162238;
+      --panel: rgba(255,255,255,.07);
+      --panel-strong: rgba(255,255,255,.105);
       --text: #f4f7fb;
       --muted: #aeb8c8;
       --line: rgba(255,255,255,.14);
@@ -140,10 +140,6 @@
 
     .level-panel {
       padding: 26px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 22px;
       background: linear-gradient(180deg, rgba(22,34,56,.92), rgba(13,22,39,.92));
     }
 
@@ -348,27 +344,25 @@
       <div class="hero-card">
         <div class="eyebrow">Defensible security awareness</div>
         <h1 id="page-title">Practical cybersecurity training for regulated teams.</h1>
-        <p class="hero-copy">Select a training level, then open one of the twelve security awareness topics. Each topic page is linked directly with a relative HTML path so the portal remains portable across GitHub Pages and other static hosting environments.</p>
+        <p class="hero-copy">Select a training level, then open one of the available security awareness topics. Each card links directly to the existing HTML file inside its level folder.</p>
       </div>
 
       <aside class="level-panel" aria-label="Training level selector">
-        <div>
-          <h2>Choose a training level</h2>
-          <p>The topic cards below update immediately when a level is selected.</p>
-          <div class="level-tabs" role="tablist" aria-label="Training levels">
-            <button class="level-tab" type="button" role="tab" aria-selected="true" data-level="introduction">
-              <strong>Introduction</strong>
-              <span>Baseline security concepts for all users.</span>
-            </button>
-            <button class="level-tab" type="button" role="tab" aria-selected="false" data-level="intermediate">
-              <strong>Intermediate</strong>
-              <span>Deeper examples, stronger controls, and practical response habits.</span>
-            </button>
-            <button class="level-tab" type="button" role="tab" aria-selected="false" data-level="advanced">
-              <strong>Advanced</strong>
-              <span>Higher-risk scenarios for managers, administrators, and power users.</span>
-            </button>
-          </div>
+        <h2>Choose a training level</h2>
+        <p>The topic cards below update immediately when a level is selected.</p>
+        <div class="level-tabs" role="tablist" aria-label="Training levels">
+          <button class="level-tab" type="button" role="tab" aria-selected="true" data-level="introduction">
+            <strong>Introduction</strong>
+            <span>Baseline security concepts for all users.</span>
+          </button>
+          <button class="level-tab" type="button" role="tab" aria-selected="false" data-level="intermediate">
+            <strong>Intermediate</strong>
+            <span>Deeper examples, stronger controls, and practical response habits.</span>
+          </button>
+          <button class="level-tab" type="button" role="tab" aria-selected="false" data-level="advanced">
+            <strong>Advanced</strong>
+            <span>Higher-risk scenarios for managers, administrators, and power users.</span>
+          </button>
         </div>
       </aside>
     </section>
@@ -385,30 +379,62 @@
     </section>
 
     <footer class="footer">
-      Pistos Security Awareness Training. Built as a static, responsive HTML portal using repository-relative links.
+      Pistos Security Awareness Training. Static, responsive, and linked with repository-relative paths.
     </footer>
   </main>
 
   <script>
-    const topics = [
-      { title: 'Security Architecture', slug: 'security_arch', summary: 'Understand how layered safeguards reduce business and data risk.' },
-      { title: 'Multifactor Authentication', slug: 'mfa', summary: 'Use MFA correctly and recognize attempts to bypass it.' },
-      { title: 'Securing Data in the Quantum World', slug: 'quantum', summary: 'Learn why encryption planning matters as computing power changes.' },
-      { title: 'Malware', slug: 'malware', summary: 'Recognize malicious software, delivery methods, and warning signs.' },
-      { title: 'Social Engineering', slug: 'social_eng', summary: 'Identify manipulation tactics before they become incidents.' },
-      { title: 'Passwords', slug: 'passwords', summary: 'Build safer password habits and reduce account takeover risk.' },
-      { title: 'Email', slug: 'email', summary: 'Spot dangerous messages, attachments, links, and impersonation.' },
-      { title: 'Data Protection', slug: 'data_protection', summary: 'Handle sensitive information with care and accountability.' },
-      { title: 'Network Security', slug: 'network', summary: 'Understand safe connectivity, segmentation, and remote access basics.' },
-      { title: 'Internet Security', slug: 'internet', summary: 'Browse, download, and authenticate with fewer avoidable risks.' },
-      { title: 'Incident Management', slug: 'incident', summary: 'Report issues quickly and preserve evidence when something goes wrong.' },
-      { title: 'Encryption', slug: 'encryption', summary: 'Understand how encryption protects systems, files, and communications.' }
-    ];
-
     const levels = {
-      introduction: 'Introduction',
-      intermediate: 'Intermediate',
-      advanced: 'Advanced'
+      introduction: {
+        label: 'Introduction',
+        topics: [
+          { title: 'Security Architecture', href: 'Introduction/01_intro_cyber.html', summary: 'Understand how layered safeguards reduce business and data risk.' },
+          { title: 'Multifactor Authentication', href: 'Introduction/02_intro_mfa.html', summary: 'Use MFA correctly and recognize attempts to bypass it.' },
+          { title: 'Securing Data in the Quantum World', href: 'Introduction/03_intro_quantum.html', summary: 'Learn why encryption planning matters as computing power changes.' },
+          { title: 'Malware', href: 'Introduction/04_intro_malware.html', summary: 'Recognize malicious software, delivery methods, and warning signs.' },
+          { title: 'Social Engineering', href: 'Introduction/05_intro_social.html', summary: 'Identify manipulation tactics before they become incidents.' },
+          { title: 'Passwords', href: 'Introduction/06_intro_passwords.html', summary: 'Build safer password habits and reduce account takeover risk.' },
+          { title: 'Email', href: 'Introduction/07_intro_email.html', summary: 'Spot dangerous messages, attachments, links, and impersonation.' },
+          { title: 'Data Protection', href: 'Introduction/08_intro_dlp.html', summary: 'Handle sensitive information with care and accountability.' },
+          { title: 'Network Security', href: 'Introduction/09_intro_network.html', summary: 'Understand safe connectivity, segmentation, and remote access basics.' },
+          { title: 'Internet Security', href: 'Introduction/10_intro_internet.html', summary: 'Browse, download, and authenticate with fewer avoidable risks.' },
+          { title: 'Incident Management', href: 'Introduction/11_intro_incident_response.html', summary: 'Report issues quickly and preserve evidence when something goes wrong.' },
+          { title: 'Encryption', href: 'Introduction/12_intro_encryption.html', summary: 'Understand how encryption protects systems, files, and communications.' }
+        ]
+      },
+      intermediate: {
+        label: 'Intermediate',
+        topics: [
+          { title: 'Security Architecture', href: 'Intermediate/int_01_security_arch_intermediate.html', summary: 'Apply security architecture principles to real operational decisions.' },
+          { title: 'Multifactor Authentication', href: 'Intermediate/int_02_mfa_intermediate.html', summary: 'Understand MFA fatigue, fallback risks, and stronger authentication habits.' },
+          { title: 'Securing Data in the Quantum World', href: 'Intermediate/int_03_quantum_intermediate.html', summary: 'Connect quantum risk to encryption planning and data retention.' },
+          { title: 'Malware', href: 'Intermediate/int_04_malware_intermediate.html', summary: 'Recognize malware behavior, delivery methods, and containment needs.' },
+          { title: 'Social Engineering', href: 'Intermediate/int_05_social_eng_intermediate.html', summary: 'Identify targeted manipulation and business-process abuse.' },
+          { title: 'Passwords', href: 'Intermediate/int_06_passwords_intermediate.html', summary: 'Improve password management and reduce credential reuse exposure.' },
+          { title: 'Email', href: 'Intermediate/int_07_email_intermediate.html', summary: 'Handle suspicious messages, attachments, and spoofed requests.' },
+          { title: 'Data Protection', href: 'Intermediate/int_08_data_protection_intermediate.html', summary: 'Protect sensitive data through handling, sharing, and retention controls.' },
+          { title: 'Network Security', href: 'Intermediate/int_09_network_intermediate.html', summary: 'Understand segmentation, secure access, and network warning signs.' },
+          { title: 'Internet Security', href: 'Intermediate/int_10_internet_intermediate.html', summary: 'Reduce online exposure from risky browsing and unauthorized tools.' },
+          { title: 'Incident Management', href: 'Intermediate/int_11_incident_intermediate.html', summary: 'Know what to report, when to escalate, and how to preserve facts.' },
+          { title: 'Encryption', href: 'Intermediate/int_12_encryption_intermediate.html', summary: 'Understand encryption use cases, limits, and operational safeguards.' }
+        ]
+      },
+      advanced: {
+        label: 'Advanced',
+        topics: [
+          { title: 'Security Architecture', href: 'Advanced/adv_01_security_arch_advanced.html', summary: 'Design security architecture for higher-risk and enterprise scenarios.' },
+          { title: 'Multifactor Authentication', href: 'Advanced/adv_02_mfa_advanced.html', summary: 'Address advanced MFA bypass, enrollment, and administrative risks.' },
+          { title: 'Securing Data in the Quantum World', href: 'Advanced/adv_03_quantum_advanced.html', summary: 'Plan for cryptographic transition and long-term data exposure.' },
+          { title: 'Malware', href: 'Advanced/adv_04_malware_advanced.html', summary: 'Understand malware tradecraft, persistence, and response priorities.' },
+          { title: 'Social Engineering', href: 'Advanced/adv_05_social_eng_advanced.html', summary: 'Recognize coordinated social engineering against people and workflows.' },
+          { title: 'Passwords', href: 'Advanced/adv_06_passwords_advanced.html', summary: 'Manage privileged credential risk and authentication control gaps.' },
+          { title: 'Email', href: 'Advanced/adv_07_email_advanced.html', summary: 'Analyze advanced phishing, impersonation, and mailbox compromise risks.' },
+          { title: 'Data Protection', href: 'Advanced/adv_08_data_protection_advanced.html', summary: 'Apply stronger controls to regulated and high-value data.' },
+          { title: 'Network Security', href: 'Advanced/adv_09_network_advanced.html', summary: 'Evaluate network defense, access paths, and lateral movement risk.' },
+          { title: 'Internet Security', href: 'Advanced/adv_10_internet_advanced.html', summary: 'Assess web, cloud, and browser risks for power users and administrators.' },
+          { title: 'Incident Management', href: 'Advanced/adv_11_incident_advanced.html', summary: 'Coordinate response, escalation, evidence, and executive reporting.' }
+        ]
+      }
     };
 
     const grid = document.getElementById('topic-grid');
@@ -416,16 +442,16 @@
     const pill = document.getElementById('level-pill');
     const tabs = Array.from(document.querySelectorAll('.level-tab'));
 
-    function renderTopics(level) {
-      const label = levels[level];
-      title.textContent = `${label} topics`;
-      pill.textContent = label;
+    function renderTopics(levelKey) {
+      const level = levels[levelKey];
+      title.textContent = `${level.label} topics`;
+      pill.textContent = level.label;
       grid.innerHTML = '';
 
-      topics.forEach((topic, index) => {
+      level.topics.forEach((topic, index) => {
         const card = document.createElement('a');
         card.className = 'topic-card';
-        card.href = `${topic.slug}_${level}.html`;
+        card.href = topic.href;
         card.setAttribute('data-number', String(index + 1).padStart(2, '0'));
         card.innerHTML = `
           <div>
