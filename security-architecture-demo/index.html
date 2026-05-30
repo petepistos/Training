@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Security Architecture Interactive Narrative Demo</title>
+<style>
+:root{
+  --navy:#071426; --navy2:#0B1F3A; --panel:#102A4C;
+  --gold:#E6C27A; --gold2:#C8A96A; --blue:#56CCF2; --blue2:#2F80ED;
+  --red:#FF4D4D; --green:#6EE7A8; --text:#E6EAF0; --muted:#A0A8B8; --line:#223A5E;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:Inter,Arial,sans-serif;color:var(--text);min-height:100vh;
+  background:radial-gradient(circle at 50% 5%,rgba(86,204,242,.16),transparent 35%),
+             linear-gradient(180deg,#050B15,var(--navy2));
+}
+.app{max-width:1500px;margin:0 auto;padding:22px}
+.header{display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(200,169,106,.35);padding-bottom:16px}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{width:54px;height:54px;border:2px solid var(--gold);border-radius:12px;display:grid;place-items:center;color:var(--gold);font-weight:900;font-size:28px;box-shadow:0 0 18px rgba(230,194,122,.25)}
+.brand small{color:var(--gold);letter-spacing:.12em;text-transform:uppercase}
+h1{text-align:center;margin:0;color:white;font-size:42px;letter-spacing:.04em;text-transform:uppercase}
+.level{color:var(--blue);text-align:center;margin-top:4px;font-size:18px}.progress{text-align:right;color:var(--gold);font-weight:800}
+.main{display:grid;grid-template-columns:260px 1fr 260px;gap:18px;margin-top:18px}
+.side-card,.right-card{border:1px solid rgba(86,204,242,.25);border-radius:14px;background:rgba(8,23,43,.72);padding:16px;box-shadow:0 18px 30px rgba(0,0,0,.28)}
+.side-card h3,.right-card h3{margin:0 0 14px;color:var(--gold);text-transform:uppercase;font-size:16px}
+.principle{display:grid;grid-template-columns:34px 1fr;gap:10px;padding:13px 0;border-bottom:1px solid rgba(34,58,94,.7)}
+.principle:last-child{border-bottom:0}.icon{width:32px;height:32px;border:1px solid var(--blue);border-radius:9px;display:grid;place-items:center;color:var(--blue);font-weight:900}
+.principle b{display:block;color:var(--blue);font-size:13px;margin-bottom:4px}.principle span{color:var(--muted);font-size:12px;line-height:1.4}
+.scene-wrap{position:relative;min-height:760px;border:1px solid rgba(200,169,106,.26);border-radius:18px;background:radial-gradient(circle at 50% 45%,rgba(86,204,242,.18),transparent 40%),radial-gradient(circle at 18% 30%,rgba(255,77,77,.14),transparent 30%),linear-gradient(180deg,rgba(16,42,76,.72),rgba(5,11,21,.9));overflow:hidden;box-shadow:0 24px 44px rgba(0,0,0,.38)}
+.scene-title{text-align:center;padding:14px 20px;color:var(--text);font-size:17px;line-height:1.35}
+.scene{position:relative;height:590px}
+.ring{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);border-radius:50%;border:4px solid rgba(86,204,242,.42);box-shadow:0 0 24px rgba(86,204,242,.18),inset 0 0 32px rgba(86,204,242,.08);transition:.35s ease}
+.ring.outer{width:720px;height:390px}.ring.monitor{width:560px;height:300px;border-color:rgba(86,204,242,.65)}.ring.inner{width:380px;height:205px;border-color:rgba(230,194,122,.7);box-shadow:0 0 26px rgba(230,194,122,.22)}
+.core{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:154px;height:120px;border-radius:18px;background:linear-gradient(145deg,#493919,var(--gold),#8F6B2E);color:#08172B;display:grid;place-items:center;text-align:center;font-weight:900;box-shadow:0 0 38px rgba(230,194,122,.52);z-index:5;transition:.35s ease}
+.node{position:absolute;border:1px solid rgba(86,204,242,.55);background:rgba(8,23,43,.86);border-radius:14px;padding:12px;min-width:170px;color:var(--text);box-shadow:0 12px 24px rgba(0,0,0,.35);cursor:pointer;transition:.25s ease;z-index:6;text-align:left}
+.node:hover,.node.active{transform:scale(1.04);border-color:var(--gold);box-shadow:0 0 28px rgba(230,194,122,.38)}
+.node b{display:block;color:var(--blue);font-size:14px;text-transform:uppercase;margin-bottom:5px}.node span{font-size:12px;color:var(--muted);line-height:1.35}
+.perimeter{left:70px;top:310px}.identity{left:310px;top:248px}.endpoint{right:310px;top:248px}.monitoring{left:50%;top:76px;transform:translateX(-50%)}.monitoring:hover,.monitoring.active{transform:translateX(-50%) scale(1.04)}
+.policy{left:50%;bottom:102px;transform:translateX(-50%)}.policy:hover,.policy.active{transform:translateX(-50%) scale(1.04)}.segment-a{left:240px;bottom:120px}.segment-b{right:240px;bottom:120px}
+.attack{position:absolute;height:3px;background:linear-gradient(90deg,transparent,var(--red),transparent);box-shadow:0 0 14px var(--red);transform-origin:left center;opacity:.75;animation:pulse 1.6s infinite;z-index:2;transition:.35s ease}
+.attack.a1{width:250px;left:0;top:230px;transform:rotate(22deg)}.attack.a2{width:330px;left:0;top:330px;transform:rotate(-5deg)}.attack.a3{width:260px;left:10px;top:420px;transform:rotate(-22deg)}
+.block-x{position:absolute;color:var(--red);font-weight:900;font-size:28px;text-shadow:0 0 10px var(--red);opacity:.8;transition:.25s}.x1{left:325px;top:302px}.x2{left:318px;top:412px}
+.flow{position:absolute;height:3px;background:linear-gradient(90deg,transparent,var(--blue),transparent);box-shadow:0 0 14px var(--blue);opacity:.75;animation:flow 2.2s linear infinite;z-index:1;transition:.35s ease}
+.flow.f1{width:360px;left:305px;top:144px}.flow.f2{width:300px;left:455px;top:458px;transform:rotate(90deg)}
+.focus .node:not(.active),.focus .ring:not(.active-ring),.focus .core:not(.active-core){opacity:.24;filter:grayscale(.45)}
+.active-ring{border-color:var(--gold)!important;box-shadow:0 0 34px rgba(230,194,122,.5),inset 0 0 34px rgba(230,194,122,.18)!important;animation:ringPulse 1.4s ease-in-out infinite}
+.active-core{box-shadow:0 0 58px rgba(230,194,122,.85);animation:corePulse 1.4s ease-in-out infinite}
+.scene[data-mode="perimeter"] .attack{opacity:1;height:5px}.scene[data-mode="perimeter"] .block-x{opacity:1;transform:scale(1.25)}
+.scene[data-mode="identity"] .identity,.scene[data-mode="identity"] .endpoint,.scene[data-mode="identity"] .policy{border-color:var(--gold);box-shadow:0 0 28px rgba(230,194,122,.48)}
+.scene[data-mode="segmentation"] .segment-a,.scene[data-mode="segmentation"] .segment-b{border-color:var(--gold);box-shadow:0 0 28px rgba(230,194,122,.48)}
+.scene[data-mode="monitoring"] .flow{height:6px;opacity:1}.scene[data-mode="monitoring"] .monitoring{border-color:var(--gold);box-shadow:0 0 28px rgba(230,194,122,.48)}
+@keyframes pulse{50%{opacity:.25}}@keyframes flow{0%{filter:brightness(.8)}50%{filter:brightness(1.8)}100%{filter:brightness(.8)}}@keyframes ringPulse{50%{box-shadow:0 0 52px rgba(230,194,122,.78),inset 0 0 38px rgba(230,194,122,.25)}}@keyframes corePulse{50%{transform:translate(-50%,-50%) scale(1.04)}}@keyframes panelIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.narrative{position:absolute;left:24px;right:24px;bottom:18px;border:1px solid rgba(200,169,106,.3);background:rgba(5,11,21,.88);border-radius:14px;padding:16px 18px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;z-index:20;animation:panelIn .25s ease}
+.narrative h2{margin:0 0 6px;color:var(--gold);font-size:20px}.narrative p{margin:0;color:var(--text);line-height:1.5}
+.step-note{margin-top:8px;color:var(--blue);font-size:13px;font-weight:800}
+.controls{display:flex;gap:10px}.controls button,.bottom button{border:1px solid var(--line);background:rgba(16,42,76,.86);color:var(--text);border-radius:10px;padding:11px 14px;font-weight:800;cursor:pointer}.controls button.primary,.bottom button.next{background:linear-gradient(135deg,#8F6B2E,var(--gold));color:#08172B;border:0}
+.right-stack{display:grid;gap:18px}.operation{display:grid;grid-template-columns:48px 1fr;gap:12px;align-items:center;padding:14px;border:1px solid rgba(86,204,242,.22);border-radius:14px;background:rgba(8,23,43,.62);cursor:pointer}.operation:hover{border-color:var(--blue)}.operation .bigicon{font-size:32px;color:var(--blue)}.operation b{display:block;color:var(--blue);font-size:13px;text-transform:uppercase}.operation span{color:var(--muted);font-size:12px;line-height:1.35}
+.outcomes li{margin:12px 0;color:var(--text);font-size:13px}.outcomes li::marker{color:var(--green)}
+.bottom{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:16px}.takeaway{flex:1;text-align:center;color:var(--text);border:1px solid rgba(200,169,106,.25);border-radius:12px;padding:12px;background:rgba(8,23,43,.72)}.takeaway strong{color:var(--gold)}
+@media(max-width:1150px){.main{grid-template-columns:1fr}.scene-wrap{min-height:780px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div class="brand"><div class="logo">F</div><div><small>PCS Security</small><br><strong>Awareness Training</strong></div></div>
+    <div><h1>Security Architecture</h1><div class="level">Interactive Narrative Demo</div></div>
+    <div class="progress">MODULE PROGRESS<br>5 OF 12</div>
+  </header>
+
+  <section class="main">
+    <aside class="side-card">
+      <h3>Architecture Principles</h3>
+      <div class="principle"><div class="icon">▱</div><div><b>Defense in Layers</b><span>Multiple layers reduce the impact of any single point of failure.</span></div></div>
+      <div class="principle"><div class="icon">ID</div><div><b>Identity Close to Data</b><span>Verify first, then allow access to protected resources.</span></div></div>
+      <div class="principle"><div class="icon">↔</div><div><b>Segmentation</b><span>Separate systems and data to contain threats.</span></div></div>
+      <div class="principle"><div class="icon">◉</div><div><b>Monitor & Detect</b><span>Continuous visibility helps teams respond fast.</span></div></div>
+      <div class="principle"><div class="icon">⟳</div><div><b>Respond & Recover</b><span>Rapid response and tested recovery reduce business impact.</span></div></div>
+    </aside>
+
+    <main class="scene-wrap">
+      <div class="scene-title">Security Architecture is the blueprint that aligns people, processes, and technology to protect critical assets.</div>
+      <div class="scene" id="scene">
+        <div class="ring outer" data-ring="perimeter"></div>
+        <div class="ring monitor" data-ring="monitoring"></div>
+        <div class="ring inner" data-ring="identity segmentation policy"></div>
+
+        <div class="attack a1"></div><div class="attack a2"></div><div class="attack a3"></div>
+        <div class="block-x x1">×</div><div class="block-x x2">×</div>
+        <div class="flow f1"></div><div class="flow f2"></div>
+
+        <button class="node monitoring" data-hotspot="monitoring"><b>Monitoring & Telemetry Layer</b><span>Collect, correlate, detect — SIEM and analytics.</span></button>
+        <button class="node perimeter" data-hotspot="perimeter"><b>Perimeter Defense</b><span>Firewalls, IDS/IPS, gateways, DDoS protection.</span></button>
+        <button class="node identity" data-hotspot="identity"><b>Identity & Access</b><span>Strong identity, MFA, least privilege.</span></button>
+        <button class="node endpoint" data-hotspot="identity"><b>Endpoints</b><span>Managed and secure devices near the protected core.</span></button>
+        <button class="node segment-a" data-hotspot="segmentation"><b>App Segment</b><span>Business applications isolated by function.</span></button>
+        <button class="node segment-b" data-hotspot="segmentation"><b>Data Segment</b><span>Databases and file services protected separately.</span></button>
+        <button class="node policy" data-hotspot="identity"><b>Policy Enforcement</b><span>Access granted based on policy and context.</span></button>
+
+        <div class="core" id="core">DATA CORE<br><small>Critical Assets</small></div>
+      </div>
+
+      <section class="narrative" id="narrativeBox">
+        <div>
+          <h2 id="nTitle">Architecture Overview</h2>
+          <p id="nText">Click a security layer to focus the environment. Each hotspot lights the relevant controls, animates the threat or data path, and explains how the architecture protects data.</p>
+          <div class="step-note" id="nStep">Select a hotspot or press Next.</div>
+        </div>
+        <div class="controls">
+          <button onclick="speakCurrent()">Play Voice</button>
+          <button onclick="stopVoice()">Stop</button>
+          <button class="primary" onclick="nextHotspot()">Next</button>
+        </div>
+      </section>
+    </main>
+
+    <aside class="right-stack">
+      <div class="right-card"><h3>Security Operations</h3><div class="operation" data-hotspot="monitoring"><div class="bigicon">▦</div><div><b>24/7 Monitoring</b><span>Threat hunting and incident response.</span></div></div></div>
+      <div class="right-card"><h3>Threat Intelligence</h3><div class="operation" data-hotspot="perimeter"><div class="bigicon">◎</div><div><b>Global feeds</b><span>Indicators and external context.</span></div></div></div>
+      <div class="right-card"><h3>Incident Response</h3><div class="operation" data-hotspot="segmentation"><div class="bigicon">⚡</div><div><b>Detect, contain, recover</b><span>Containment limits impact.</span></div></div></div>
+      <div class="right-card outcomes"><h3>Architecture Outcomes</h3><ul><li>Protected critical assets</li><li>Reduced attack surface</li><li>Threats detected early</li><li>Containment limits impact</li><li>Business continuity</li></ul></div>
+    </aside>
+  </section>
+
+  <section class="bottom">
+    <button onclick="history.back()">‹ Back</button>
+    <div class="takeaway"><strong>Key takeaway:</strong> A strong architecture does not stop every attack. It ensures attackers cannot move freely or succeed easily.</div>
+    <button class="next" onclick="nextHotspot()">Next ›</button>
+  </section>
+</div>
+
+<script>
+const content = {
+  perimeter: {
+    title: "Perimeter Defense",
+    text: "Perimeter defenses are the first line of resistance against external threats. Firewalls, intrusion prevention systems, and gateways inspect malicious traffic before it reaches internal systems. Perimeter security matters, but it cannot be the only layer because attackers may bypass the edge through phishing, stolen credentials, and trusted connections.",
+    step: "Animation: red attack paths intensify and stop at the perimeter barriers.",
+    rings:["perimeter"]
+  },
+  identity: {
+    title: "Identity and Access Near the Data",
+    text: "Identity controls should exist as close to protected data as possible. Access decisions depend on identity verification, multifactor authentication, device trust, and policy enforcement. Strong identity architecture limits attacker movement even after initial compromise.",
+    step: "Animation: identity, endpoint, and policy controls brighten around the data core.",
+    rings:["identity segmentation policy"],
+    core:true
+  },
+  segmentation: {
+    title: "Segmentation and Containment",
+    text: "Segmentation divides systems into controlled security zones. Applications, databases, and infrastructure are separated to reduce the blast radius of compromise. If attackers breach one segment, properly designed architecture prevents unrestricted movement across the environment.",
+    step: "Animation: app and data segments glow while lateral movement routes remain blocked.",
+    rings:["identity segmentation policy"]
+  },
+  monitoring: {
+    title: "Monitoring and Telemetry",
+    text: "Monitoring and telemetry transform architecture from passive defense into active detection. Security teams collect and correlate events from systems, endpoints, networks, and cloud services to identify malicious behavior quickly. Organizations cannot respond to threats they cannot see.",
+    step: "Animation: blue telemetry streams pulse through the monitoring layer.",
+    rings:["monitoring"]
+  }
+};
+const order = ["perimeter","identity","segmentation","monitoring"];
+let current = -1;
+let currentText = "";
+
+function activate(name){
+  const scene = document.getElementById("scene");
+  scene.classList.add("focus");
+  scene.dataset.mode = name;
+
+  document.querySelectorAll(".node").forEach(n => n.classList.toggle("active", n.dataset.hotspot === name));
+  document.querySelectorAll(".ring").forEach(r => r.classList.remove("active-ring"));
+  document.getElementById("core").classList.remove("active-core");
+
+  const item = content[name];
+  document.getElementById("nTitle").textContent = item.title;
+  document.getElementById("nText").textContent = item.text;
+  document.getElementById("nStep").textContent = item.step;
+  currentText = item.title + ". " + item.text;
+
+  document.getElementById("narrativeBox").style.animation = "none";
+  void document.getElementById("narrativeBox").offsetWidth;
+  document.getElementById("narrativeBox").style.animation = "panelIn .25s ease";
+
+  document.querySelectorAll(".ring").forEach(r=>{
+    if(item.rings.some(x => (r.dataset.ring || "").includes(x))) r.classList.add("active-ring");
+  });
+  if(item.core) document.getElementById("core").classList.add("active-core");
+  current = order.indexOf(name);
+}
+function nextHotspot(){ current = (current + 1) % order.length; activate(order[current]); }
+function speakCurrent(){
+  stopVoice();
+  const text = currentText || document.getElementById("nTitle").textContent + ". " + document.getElementById("nText").textContent;
+  const u = new SpeechSynthesisUtterance(text);
+  u.rate = .92; u.pitch = .95;
+  window.speechSynthesis.speak(u);
+}
+function stopVoice(){ if("speechSynthesis" in window) window.speechSynthesis.cancel(); }
+document.querySelectorAll("[data-hotspot]").forEach(el=>el.addEventListener("click",()=>activate(el.dataset.hotspot)));
+</script>
+</body>
+</html>
