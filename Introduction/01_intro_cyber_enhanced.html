@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Security Architecture — Introduction</title>
+  <link rel="stylesheet" href="../assets/css/topic-shell.css" />
+  <style>
+    .visual-scene{height:100%;display:grid;place-items:center;padding:22px;background:radial-gradient(circle at 50% 25%,rgba(86,204,242,.22),transparent 42%),linear-gradient(145deg,rgba(8,23,43,.95),rgba(16,42,76,.88))}
+    .mini-stage{width:100%;height:100%;position:relative;border-radius:18px;border:1px solid rgba(86,204,242,.25);overflow:hidden;background:linear-gradient(180deg,rgba(8,23,43,.28),rgba(8,23,43,.76))}
+    .v-title{position:absolute;left:18px;top:18px;color:#E6C27A;font-weight:900;letter-spacing:.08em;text-transform:uppercase;font-size:16px;z-index:5}
+    .v-sub{position:absolute;left:18px;bottom:16px;color:#A0A8B8;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;z-index:5}
+    .data-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:110px;height:82px;border-radius:18px;background:linear-gradient(135deg,#8F6B2E,#E6C27A,#C8A96A);box-shadow:0 0 34px rgba(230,194,122,.58);display:grid;place-items:center;color:#08172B;font-weight:900;text-align:center;font-size:13px}
+    .ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;border:3px solid rgba(86,204,242,.42);box-shadow:0 0 18px rgba(86,204,242,.24)}
+    .ring.one{width:72%;height:58%}.ring.two{width:52%;height:40%;border-color:rgba(230,194,122,.55)}.ring.three{width:34%;height:26%;border-color:rgba(86,204,242,.72)}
+    .attack-line{position:absolute;height:4px;background:linear-gradient(90deg,transparent,#FF4D4D,transparent);box-shadow:0 0 14px #FF4D4D}.attack-line.a{left:0;top:38%;width:38%;transform:rotate(12deg)}.attack-line.b{left:0;top:58%;width:34%;transform:rotate(-15deg)}.attack-line.c{right:7%;top:64%;width:24%;transform:rotate(18deg)}
+    .gate{position:absolute;border:1px solid #56CCF2;background:rgba(16,42,76,.86);border-radius:12px;color:#E6EAF0;padding:8px 10px;font-size:11px;font-weight:900;text-align:center;box-shadow:0 0 16px rgba(86,204,242,.28)}
+    .gate.firewall{left:27%;top:47%}.gate.identity{left:40%;top:33%;border-color:#E6C27A}.gate.monitor{right:27%;top:25%}.gate.zone-a{left:22%;bottom:28%}.gate.zone-b{right:22%;bottom:28%}
+    .soc-wall{position:absolute;right:10%;top:26%;width:32%;height:36%;border-radius:14px;border:1px solid #56CCF2;background:rgba(8,23,43,.86);box-shadow:0 0 22px rgba(86,204,242,.32)}
+    .soc-line{height:4px;margin:12px;border-radius:99px;background:linear-gradient(90deg,#56CCF2,transparent)}
+    .analyst{position:absolute;left:22%;bottom:23%;width:60px;height:82px;border-radius:26px 26px 12px 12px;background:linear-gradient(180deg,#102A4C,#08172B);border:1px solid #56CCF2;box-shadow:0 0 18px rgba(86,204,242,.24)}
+    .analyst:before{content:"";position:absolute;left:14px;top:-30px;width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#8F6B2E,#E6C27A);box-shadow:0 0 16px rgba(230,194,122,.45)}
+    .segments{position:absolute;inset:72px 58px 54px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.segment{border:1px solid rgba(86,204,242,.5);border-radius:18px;background:rgba(8,23,43,.62);display:grid;place-items:center;color:#E6C27A;font-weight:900;text-align:center;box-shadow:inset 0 0 24px rgba(86,204,242,.08)}
+  </style>
+</head>
+<body>
+  <main class="topic-page">
+    <header class="topic-header">
+      <div>
+        <div class="brand-kicker">Pistos Security Awareness Training</div>
+        <h1 class="topic-title">Security Architecture</h1>
+      </div>
+      <div class="level-banner introduction">Introduction Level</div>
+      <a class="back-link" href="../index.html">Back to Level 1</a>
+    </header>
+
+    <p class="topic-intro">Security architecture is the way an organization arranges controls, systems, people, and monitoring so that important data is protected even when individual defenses fail.</p>
+
+    <section class="panel-grid" aria-label="Security Architecture visual learning panels">
+      <button class="panel-card" data-section="section-1" aria-label="Defend the Perimeter">
+        <div class="panel-image-wrap">
+          <div class="visual-scene"><div class="mini-stage"><div class="v-title">Defend the Perimeter</div><div class="ring one"></div><div class="attack-line a"></div><div class="attack-line b"></div><div class="gate firewall">FIREWALL<br>IDS/IPS</div><div class="data-core">ENTERPRISE<br>NETWORK</div><div class="v-sub">External pressure meets first-line controls</div></div></div>
+          <div class="panel-overlay-level"><span class="level-banner introduction">Introduction</span></div>
+        </div>
+        <div class="panel-content"><div class="panel-number">Panel 01</div><h2>Defend the Perimeter</h2><p>External threats are inspected and blocked before reaching internal systems.</p><div class="panel-cta">Open Narrative</div></div>
+      </button>
+
+      <button class="panel-card" data-section="section-2" aria-label="Verify Every Identity">
+        <div class="panel-image-wrap">
+          <div class="visual-scene"><div class="mini-stage"><div class="v-title">Verify Every Identity</div><div class="ring two"></div><div class="gate identity">MFA<br>POLICY</div><div class="gate monitor">DEVICE<br>TRUST</div><div class="data-core">DATA<br>CORE</div><div class="v-sub">Access is checked close to protected data</div></div></div>
+          <div class="panel-overlay-level"><span class="level-banner introduction">Introduction</span></div>
+        </div>
+        <div class="panel-content"><div class="panel-number">Panel 02</div><h2>Verify Every Identity</h2><p>Identity, MFA, device trust, and policy determine whether access is allowed.</p><div class="panel-cta">Open Narrative</div></div>
+      </button>
+
+      <button class="panel-card" data-section="section-3" aria-label="Contain the Breach">
+        <div class="panel-image-wrap">
+          <div class="visual-scene"><div class="mini-stage"><div class="v-title">Contain the Breach</div><div class="segments"><div class="segment">USER<br>ZONE</div><div class="segment">APP<br>ZONE</div><div class="segment">DATA<br>ZONE</div></div><div class="attack-line c"></div><div class="v-sub">Segmentation limits lateral movement</div></div></div>
+          <div class="panel-overlay-level"><span class="level-banner introduction">Introduction</span></div>
+        </div>
+        <div class="panel-content"><div class="panel-number">Panel 03</div><h2>Contain the Breach</h2><p>Security zones reduce the blast radius when one system is compromised.</p><div class="panel-cta">Open Narrative</div></div>
+      </button>
+
+      <button class="panel-card" data-section="section-4" aria-label="Detect and Respond">
+        <div class="panel-image-wrap">
+          <div class="visual-scene"><div class="mini-stage"><div class="v-title">Detect and Respond</div><div class="soc-wall"><div class="soc-line"></div><div class="soc-line"></div><div class="soc-line"></div><div class="soc-line"></div></div><div class="analyst"></div><div class="attack-line a"></div><div class="v-sub">Telemetry turns activity into action</div></div></div>
+          <div class="panel-overlay-level"><span class="level-banner introduction">Introduction</span></div>
+        </div>
+        <div class="panel-content"><div class="panel-number">Panel 04</div><h2>Detect and Respond</h2><p>Monitoring helps teams find suspicious activity and respond quickly.</p><div class="panel-cta">Open Narrative</div></div>
+      </button>
+    </section>
+
+    <section class="narrative-section" id="section-1" data-narration="Defend the perimeter. Perimeter defenses are the first line of resistance against external threats. Firewalls, intrusion prevention systems, secure gateways, and filtering services inspect traffic before it reaches internal systems. Perimeter controls matter, but they are only one layer of the architecture.">
+      <div class="narrative-head"><div><div class="narrative-eyebrow">Narrative 01</div><h3>Defend the Perimeter</h3><p>External controls reduce exposure to internet-based attacks.</p></div><div class="voice-controls"><button onclick="TopicShell.speakCurrentSection()">Play Voice</button><button class="secondary" onclick="TopicShell.stopVoice()">Stop</button></div></div>
+      <article class="narrative-block"><h4>What it means</h4><p>Perimeter defenses inspect traffic coming into and leaving the organization. They help block scanning, malware delivery, suspicious connections, and unauthorized access attempts.</p></article>
+      <article class="narrative-block"><h4>Why it matters</h4><p>The perimeter reduces noise and stops many common attacks, but users, cloud services, vendors, and remote access can create paths around the edge. That is why perimeter security must be combined with identity, segmentation, and monitoring.</p></article>
+    </section>
+
+    <section class="narrative-section" id="section-2" data-narration="Verify every identity. Identity controls should sit close to protected data. Access decisions depend on who the user is, whether multifactor authentication succeeded, whether the device is trusted, and whether the request matches policy.">
+      <div class="narrative-head"><div><div class="narrative-eyebrow">Narrative 02</div><h3>Verify Every Identity</h3><p>Access is granted only after the user, device, and request are checked.</p></div><div class="voice-controls"><button onclick="TopicShell.speakCurrentSection()">Play Voice</button><button class="secondary" onclick="TopicShell.stopVoice()">Stop</button></div></div>
+      <article class="narrative-block"><h4>What it means</h4><p>Modern security assumes that attackers may obtain passwords or reach internal systems. Strong identity controls make access decisions based on MFA, device trust, user role, location, and policy.</p></article>
+      <article class="narrative-block"><h4>Why it matters</h4><p>When identity controls sit close to protected data, an attacker who gets past one layer still has to pass additional checks before reaching sensitive information.</p></article>
+    </section>
+
+    <section class="narrative-section" id="section-3" data-narration="Contain the breach. Segmentation separates users, applications, infrastructure, and data into controlled zones. If one system is compromised, segmentation helps prevent the attacker from moving freely through the environment.">
+      <div class="narrative-head"><div><div class="narrative-eyebrow">Narrative 03</div><h3>Contain the Breach</h3><p>Segmentation reduces the damage caused by a successful compromise.</p></div><div class="voice-controls"><button onclick="TopicShell.speakCurrentSection()">Play Voice</button><button class="secondary" onclick="TopicShell.stopVoice()">Stop</button></div></div>
+      <article class="narrative-block"><h4>What it means</h4><p>Segmentation divides systems by purpose, sensitivity, and risk. User devices, applications, databases, and administrative systems should not all sit in one unrestricted environment.</p></article>
+      <article class="narrative-block"><h4>Why it matters</h4><p>If malware or an attacker compromises one area, segmentation can limit lateral movement and keep the incident from becoming a full enterprise breach.</p></article>
+    </section>
+
+    <section class="narrative-section" id="section-4" data-narration="Detect and respond. Monitoring and telemetry make the architecture active. Logs, alerts, endpoint signals, network activity, and cloud events help security teams identify suspicious behavior and respond before damage spreads.">
+      <div class="narrative-head"><div><div class="narrative-eyebrow">Narrative 04</div><h3>Detect and Respond</h3><p>Visibility allows teams to find, investigate, and contain suspicious activity.</p></div><div class="voice-controls"><button onclick="TopicShell.speakCurrentSection()">Play Voice</button><button class="secondary" onclick="TopicShell.stopVoice()">Stop</button></div></div>
+      <article class="narrative-block"><h4>What it means</h4><p>Monitoring collects activity from endpoints, servers, identity systems, networks, cloud services, and security tools. Security teams use this telemetry to identify abnormal behavior.</p></article>
+      <article class="narrative-block"><h4>Why it matters</h4><p>Organizations cannot respond to threats they cannot see. Good telemetry turns architecture from static defense into active detection and response.</p></article>
+    </section>
+
+    <section class="quiz" id="quiz">
+      <h2>Knowledge Check</h2><p class="quiz-intro">Answer all six questions. Submit when complete to receive your score and brief feedback.</p>
+      <div class="quiz-card" data-answer="1" data-explanation="Layered defense reduces reliance on one control."><div class="quiz-number">Question 01</div><h4>What is the main purpose of layered security architecture?</h4><div class="answers"><label class="answer"><input type="radio" name="q1" value="0"><span>To rely on one strong control</span></label><label class="answer"><input type="radio" name="q1" value="1"><span>To reduce risk by using multiple defenses</span></label><label class="answer"><input type="radio" name="q1" value="2"><span>To remove monitoring</span></label><label class="answer"><input type="radio" name="q1" value="3"><span>To make all users administrators</span></label></div><div class="explanation"></div></div>
+      <div class="quiz-card" data-answer="2" data-explanation="Identity belongs close to protected data because access must be verified before sensitive information is reached."><div class="quiz-number">Question 02</div><h4>Which control should sit close to protected data?</h4><div class="answers"><label class="answer"><input type="radio" name="q2" value="0"><span>Public internet access</span></label><label class="answer"><input type="radio" name="q2" value="1"><span>Printer settings</span></label><label class="answer"><input type="radio" name="q2" value="2"><span>Identity and access controls</span></label><label class="answer"><input type="radio" name="q2" value="3"><span>Unrestricted guest access</span></label></div><div class="explanation"></div></div>
+      <div class="quiz-card" data-answer="0" data-explanation="Segmentation helps contain compromise and limits lateral movement."><div class="quiz-number">Question 03</div><h4>Why is segmentation important?</h4><div class="answers"><label class="answer"><input type="radio" name="q3" value="0"><span>It limits movement between systems</span></label><label class="answer"><input type="radio" name="q3" value="1"><span>It disables authentication</span></label><label class="answer"><input type="radio" name="q3" value="2"><span>It removes the need for backups</span></label><label class="answer"><input type="radio" name="q3" value="3"><span>It makes all data public</span></label></div><div class="explanation"></div></div>
+      <div class="quiz-card" data-answer="3" data-explanation="Monitoring gives security teams visibility into suspicious behavior."><div class="quiz-number">Question 04</div><h4>What does monitoring provide?</h4><div class="answers"><label class="answer"><input type="radio" name="q4" value="0"><span>Guaranteed prevention of all attacks</span></label><label class="answer"><input type="radio" name="q4" value="1"><span>More password reuse</span></label><label class="answer"><input type="radio" name="q4" value="2"><span>Less visibility</span></label><label class="answer"><input type="radio" name="q4" value="3"><span>Visibility for detection and response</span></label></div><div class="explanation"></div></div>
+      <div class="quiz-card" data-answer="1" data-explanation="Perimeter controls are important, but attackers may bypass them through phishing, stolen credentials, trusted services, or remote access."><div class="quiz-number">Question 05</div><h4>Why is perimeter security not enough by itself?</h4><div class="answers"><label class="answer"><input type="radio" name="q5" value="0"><span>Because firewalls are never useful</span></label><label class="answer"><input type="radio" name="q5" value="1"><span>Because attackers may bypass the edge</span></label><label class="answer"><input type="radio" name="q5" value="2"><span>Because users never need access</span></label><label class="answer"><input type="radio" name="q5" value="3"><span>Because monitoring replaces all controls</span></label></div><div class="explanation"></div></div>
+      <div class="quiz-card" data-answer="2" data-explanation="Good architecture combines prevention, access control, containment, visibility, and response."><div class="quiz-number">Question 06</div><h4>What makes security architecture effective?</h4><div class="answers"><label class="answer"><input type="radio" name="q6" value="0"><span>A single tool</span></label><label class="answer"><input type="radio" name="q6" value="1"><span>No user verification</span></label><label class="answer"><input type="radio" name="q6" value="2"><span>Controls working together as a system</span></label><label class="answer"><input type="radio" name="q6" value="3"><span>Ignoring suspicious activity</span></label></div><div class="explanation"></div></div>
+      <button class="quiz-submit" onclick="TopicShell.gradeQuiz()">Submit Quiz</button><div class="quiz-result" id="quiz-result"></div>
+    </section>
+  </main>
+  <script src="../assets/js/topic-shell.js"></script>
+</body>
+</html>
