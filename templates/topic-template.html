@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{TOPIC_TITLE}} — {{LEVEL_LABEL}}</title>
+  <link rel="stylesheet" href="../assets/css/topic-shell.css" />
+</head>
+<body>
+  <main class="topic-page">
+    <header class="topic-header">
+      <div>
+        <div class="brand-kicker">Pistos Security Awareness Training</div>
+        <h1 class="topic-title">{{TOPIC_TITLE}}</h1>
+      </div>
+      <div class="level-banner {{LEVEL_CLASS}}">{{LEVEL_LABEL}} LEVEL</div>
+      <a class="back-link" href="../index.html">Back to Level 1</a>
+    </header>
+
+    <p class="topic-intro">{{TOPIC_INTRO}}</p>
+
+    <section class="panel-grid" aria-label="{{TOPIC_TITLE}} visual learning panels">
+      <button class="panel-card" data-section="section-1" aria-label="{{PANEL_1_TITLE}}">
+        <div class="panel-image-wrap">
+          <img class="panel-image" src="{{PANEL_1_IMAGE}}" alt="{{PANEL_1_ALT}}" />
+          <div class="panel-overlay-level"><span class="level-banner {{LEVEL_CLASS}}">{{LEVEL_LABEL}}</span></div>
+        </div>
+        <div class="panel-content">
+          <div class="panel-number">Panel 01</div>
+          <h2>{{PANEL_1_TITLE}}</h2>
+          <p>{{PANEL_1_TEASER}}</p>
+          <div class="panel-cta">Open Narrative</div>
+        </div>
+      </button>
+
+      <button class="panel-card" data-section="section-2" aria-label="{{PANEL_2_TITLE}}">
+        <div class="panel-image-wrap">
+          <img class="panel-image" src="{{PANEL_2_IMAGE}}" alt="{{PANEL_2_ALT}}" />
+          <div class="panel-overlay-level"><span class="level-banner {{LEVEL_CLASS}}">{{LEVEL_LABEL}}</span></div>
+        </div>
+        <div class="panel-content">
+          <div class="panel-number">Panel 02</div>
+          <h2>{{PANEL_2_TITLE}}</h2>
+          <p>{{PANEL_2_TEASER}}</p>
+          <div class="panel-cta">Open Narrative</div>
+        </div>
+      </button>
+
+      <button class="panel-card" data-section="section-3" aria-label="{{PANEL_3_TITLE}}">
+        <div class="panel-image-wrap">
+          <img class="panel-image" src="{{PANEL_3_IMAGE}}" alt="{{PANEL_3_ALT}}" />
+          <div class="panel-overlay-level"><span class="level-banner {{LEVEL_CLASS}}">{{LEVEL_LABEL}}</span></div>
+        </div>
+        <div class="panel-content">
+          <div class="panel-number">Panel 03</div>
+          <h2>{{PANEL_3_TITLE}}</h2>
+          <p>{{PANEL_3_TEASER}}</p>
+          <div class="panel-cta">Open Narrative</div>
+        </div>
+      </button>
+
+      <button class="panel-card" data-section="section-4" aria-label="{{PANEL_4_TITLE}}">
+        <div class="panel-image-wrap">
+          <img class="panel-image" src="{{PANEL_4_IMAGE}}" alt="{{PANEL_4_ALT}}" />
+          <div class="panel-overlay-level"><span class="level-banner {{LEVEL_CLASS}}">{{LEVEL_LABEL}}</span></div>
+        </div>
+        <div class="panel-content">
+          <div class="panel-number">Panel 04</div>
+          <h2>{{PANEL_4_TITLE}}</h2>
+          <p>{{PANEL_4_TEASER}}</p>
+          <div class="panel-cta">Open Narrative</div>
+        </div>
+      </button>
+    </section>
+
+    <section class="narrative-section" id="section-1" data-narration="{{SECTION_1_NARRATION}}">
+      <div class="narrative-head">
+        <div>
+          <div class="narrative-eyebrow">Narrative 01</div>
+          <h3>{{SECTION_1_TITLE}}</h3>
+          <p>{{SECTION_1_SUMMARY}}</p>
+        </div>
+        <div class="voice-controls">
+          <button onclick="TopicShell.speakCurrentSection()">Play Voice</button>
+          <button class="secondary" onclick="TopicShell.stopVoice()">Stop</button>
+        </div>
+      </div>
+      {{SECTION_1_BLOCKS}}
+    </section>
+
+    <section class="narrative-section" id="section-2" data-narration="{{SECTION_2_NARRATION}}">
+      <div class="narrative-head">
+        <div>
+          <div class="narrative-eyebrow">Narrative 02</div>
+          <h3>{{SECTION_2_TITLE}}</h3>
+          <p>{{SECTION_2_SUMMARY}}</p>
+        </div>
+        <div class="voice-controls">
+          <button onclick="TopicShell.speakCurrentSection()">Play Voice</button>
+          <button class="secondary" onclick="TopicShell.stopVoice()">Stop</button>
+        </div>
+      </div>
+      {{SECTION_2_BLOCKS}}
+    </section>
+
+    <section class="narrative-section" id="section-3" data-narration="{{SECTION_3_NARRATION}}">
+      <div class="narrative-head">
+        <div>
+          <div class="narrative-eyebrow">Narrative 03</div>
+          <h3>{{SECTION_3_TITLE}}</h3>
+          <p>{{SECTION_3_SUMMARY}}</p>
+        </div>
+        <div class="voice-controls">
+          <button onclick="TopicShell.speakCurrentSection()">Play Voice</button>
+          <button class="secondary" onclick="TopicShell.stopVoice()">Stop</button>
+        </div>
+      </div>
+      {{SECTION_3_BLOCKS}}
+    </section>
+
+    <section class="narrative-section" id="section-4" data-narration="{{SECTION_4_NARRATION}}">
+      <div class="narrative-head">
+        <div>
+          <div class="narrative-eyebrow">Narrative 04</div>
+          <h3>{{SECTION_4_TITLE}}</h3>
+          <p>{{SECTION_4_SUMMARY}}</p>
+        </div>
+        <div class="voice-controls">
+          <button onclick="TopicShell.speakCurrentSection()">Play Voice</button>
+          <button class="secondary" onclick="TopicShell.stopVoice()">Stop</button>
+        </div>
+      </div>
+      {{SECTION_4_BLOCKS}}
+    </section>
+
+    <section class="quiz" id="quiz">
+      <h2>Knowledge Check</h2>
+      <p class="quiz-intro">Answer all six questions. Submit when complete to receive your score and brief feedback.</p>
+      {{QUIZ_CARDS}}
+      <button class="quiz-submit" onclick="TopicShell.gradeQuiz()">Submit Quiz</button>
+      <div class="quiz-result" id="quiz-result"></div>
+    </section>
+  </main>
+
+  <script src="../assets/js/topic-shell.js"></script>
+</body>
+</html>
