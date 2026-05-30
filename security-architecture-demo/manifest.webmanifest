@@ -1,0 +1,9 @@
+{
+  "name": "Pistos Security Architecture Interactive Demo",
+  "short_name": "Security Architecture",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#08172B",
+  "theme_color": "#0B1F3A",
+  "orientation": "landscape"
+}
