@@ -1,0 +1,1 @@
+Temporary deployment marker created to obtain a current commit SHA for the training site update.
